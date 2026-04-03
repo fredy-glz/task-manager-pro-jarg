@@ -1,3 +1,10 @@
+/**
+ * @author  José Alfredo Romero González
+ * @title   Full Stack Developer
+ * @project Task Manager Pro
+ * @year    2026
+ */
+
 {
   "compilerOptions": {
     "target": "ES2020",

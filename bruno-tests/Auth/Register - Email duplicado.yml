@@ -1,0 +1,23 @@
+info:
+  name: Register - Email duplicado
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: http://localhost:3000/api/auth/register
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Fredy Test",
+        "email": "fredy@test.com",
+        "password": "123456"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

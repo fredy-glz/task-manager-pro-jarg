@@ -11,6 +11,7 @@ import dotenv from "dotenv";
 import { testConnection } from "./config/db";
 import { runMigrations } from "./database/migrations";
 import { runSeeds } from "./database/seeds";
+import authRoutes from "./routes/auth.routes";
 
 // Carga las variables de entorno antes que cualquier otra cosa
 dotenv.config();
@@ -39,6 +40,9 @@ app.get("/api/health", (req: Request, res: Response) => {
     timestamp: new Date().toISOString(),
   });
 });
+
+// Rutas de autenticación
+app.use("/api/auth", authRoutes);
 
 // ─── Arranque del servidor ───────────────────────────────────────────────────
 

@@ -1,0 +1,17 @@
+info:
+  name: Get Tasks - Token inválido
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{baseUrl}}/api/tasks"
+  auth:
+    type: bearer
+    token: tokeninvalido123
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

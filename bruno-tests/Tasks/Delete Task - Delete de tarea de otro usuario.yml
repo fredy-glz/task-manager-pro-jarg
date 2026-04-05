@@ -1,0 +1,17 @@
+info:
+  name: Delete Task - Delete de tarea de otro usuario
+  type: http
+  seq: 17
+
+http:
+  method: DELETE
+  url: "{{baseUrl}}/api/tasks/1"
+  auth:
+    type: bearer
+    token: "{{tokenUser}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

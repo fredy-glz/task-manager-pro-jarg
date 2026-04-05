@@ -10,6 +10,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { findUserByEmail, createUser } from "../models/user.model";
 import { RegisterBody, LoginBody } from "../types";
+import { success, error } from "../utils/response";
 
 /**
  * Registra un nuevo usuario en la BD.
@@ -22,21 +23,19 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
     // ── Validación básica de campos ──────────────────────────────────────────
     if (!name || !email || !password) {
-      res.status(400).json({ message: "All fields are required" });
+      res.status(400).json(error("All fields are required"));
       return;
     }
 
     if (password.length < 6) {
-      res
-        .status(400)
-        .json({ message: "Password must be at least 6 characters" });
+      res.status(400).json(error("Password must be at least 6 characters"));
       return;
     }
 
     // ── Verificar que el email no esté en uso ────────────────────────────────
     const existingUser = await findUserByEmail(email);
     if (existingUser) {
-      res.status(409).json({ message: "Email already in use" });
+      res.status(409).json(error("Email already in use"));
       return;
     }
 
@@ -51,13 +50,10 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       { expiresIn: (process.env.JWT_EXPIRES_IN || "7d") as any },
     );
 
-    res.status(201).json({
-      message: "User registered successfully",
-      token,
-    });
-  } catch (error) {
-    console.error("Register error:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(201).json(success("User registered successfully", { token }));
+  } catch (err) {
+    console.error("Register error:", err);
+    res.status(500).json(error("Internal server error"));
   }
 };
 
@@ -72,7 +68,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
     // ── Validación básica de campos ──────────────────────────────────────────
     if (!email || !password) {
-      res.status(400).json({ message: "All fields are required" });
+      res.status(400).json(error("All fields are required"));
       return;
     }
 
@@ -80,14 +76,14 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     const user = await findUserByEmail(email);
     if (!user) {
       // Mensaje genérico intencional - no revelamos si el email existe o no
-      res.status(401).json({ message: "Invalid credentials" });
+      res.status(401).json(error("Invalid credentials"));
       return;
     }
 
     // ── Verificar contraseña ─────────────────────────────────────────────────
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      res.status(401).json({ message: "Invalid credentials" });
+      res.status(401).json(error("Invalid credentials"));
       return;
     }
 
@@ -98,12 +94,9 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       { expiresIn: (process.env.JWT_EXPIRES_IN || "7d") as any },
     );
 
-    res.status(200).json({
-      message: "Login successful",
-      token,
-    });
-  } catch (error) {
-    console.error("Login error", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(200).json(success("Login successful", { token }));
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).json(error("Internal server error"));
   }
 };

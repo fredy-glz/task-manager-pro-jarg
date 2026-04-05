@@ -1,17 +1,17 @@
 info:
-  name: Login - Credenciales incorrectas
+  name: Update Task - ID inexistente
   type: http
-  seq: 6
+  seq: 13
 
 http:
-  method: POST
-  url: "{{baseUrl}}/api/auth/login"
+  method: PUT
+  url: "{{baseUrl}}/api/tasks/9999"
   body:
     type: json
     data: |-
       {
-        "email": "fredy@test.com",
-        "password": "wrongpassword"
+        "status": "in_progress",
+        "priority": "critical"
       }
   auth: inherit
 

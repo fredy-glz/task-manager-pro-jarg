@@ -1,14 +1,11 @@
 info:
-  name: Login - Sin campos
+  name: Delete Task
   type: http
-  seq: 7
+  seq: 15
 
 http:
-  method: POST
-  url: "{{baseUrl}}/api/auth/login"
-  body:
-    type: json
-    data: "{}"
+  method: DELETE
+  url: "{{baseUrl}}/api/tasks/11"
   auth: inherit
 
 settings:

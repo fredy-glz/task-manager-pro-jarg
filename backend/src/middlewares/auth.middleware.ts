@@ -8,6 +8,7 @@
 import { Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { AuthRequest, JwtPayload } from "../types";
+import { error } from "../utils/response";
 
 /**
  * Middleware que verifica el token JWT en el header de la petición.
@@ -25,7 +26,7 @@ export const authenticate = (
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      res.status(401).json({ message: "No token provided" });
+      res.status(401).json(error("No token provided"));
       return;
     }
 
@@ -34,7 +35,7 @@ export const authenticate = (
 
     // ── Validación extra — por si viene "Bearer " sin token ──────────────────
     if (!token || token.trim() === "") {
-      res.status(402).json({ message: "No token provided" });
+      res.status(402).json(error("No token provided"));
       return;
     }
 
@@ -49,9 +50,9 @@ export const authenticate = (
 
     // Todo bien — dejamos pasar la petición
     next();
-  } catch (error) {
+  } catch (err) {
     // jwt.verify lanza un error si el token es inválido o expiró
-    res.status(401).json({ message: "Invalid or expired token" });
+    res.status(401).json(error("Invalid or expired token"));
   }
 };
 
@@ -65,7 +66,7 @@ export const authorizeAdmin = (
   next: NextFunction,
 ): void => {
   if (req.user?.role !== "admin") {
-    res.status(403).json({ message: "Access denied - Admins only" });
+    res.status(403).json(error("Access denied - Admins only"));
     return;
   }
   next();

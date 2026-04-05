@@ -1,0 +1,23 @@
+info:
+  name: Update Task - Update de tarea de otro usuario
+  type: http
+  seq: 14
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/api/tasks/1"
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Hackeando tu tarea"
+      }
+  auth:
+    type: bearer
+    token: "{{tokenUser}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

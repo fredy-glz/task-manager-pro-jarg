@@ -1,18 +1,19 @@
 info:
-  name: Register - Email duplicado
+  name: Create Task
   type: http
   seq: 4
 
 http:
   method: POST
-  url: "{{baseUrl}}/api/auth/register"
+  url: "{{baseUrl}}/api/tasks"
   body:
     type: json
     data: |-
       {
-        "name": "Fredy Test",
-        "email": "fredy@test.com",
-        "password": "123456"
+        "title": "Mi primer tarea",
+        "description": "Descripción de prueba",
+        "priority": "high",
+        "due_date": "2026-05-01"
       }
   auth: inherit
 

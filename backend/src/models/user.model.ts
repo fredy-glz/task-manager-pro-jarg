@@ -7,17 +7,18 @@
 
 import pool from "../config/db";
 import { User } from "../types";
+import { RowDataPacket, ResultSetHeader } from "mysql2";
 
 /**
  * Busca un usuario por email.
  * Se usa en el login para verificar si el usuario existe.
  */
 export const findUserByEmail = async (email: string): Promise<User | null> => {
-  const [rows]: any = await pool.execute(
+  const [rows] = await pool.execute<RowDataPacket[]>(
     "SELECT * FROM users WHERE email = ?",
     [email],
   );
-  return rows.length > 0 ? rows[0] : null;
+  return rows.length > 0 ? (rows[0] as User) : null;
 };
 
 /**
@@ -25,12 +26,12 @@ export const findUserByEmail = async (email: string): Promise<User | null> => {
  * Se usa en el middleware de auth para verificar el token JWT.
  */
 export const findUserById = async (id: number): Promise<User | null> => {
-  const [rows]: any = pool.execute(
+  const [rows] = await pool.execute<RowDataPacket[]>(
     "SELECT id, name, email, role, created_at, updated_at FROM users WHERE id = ?",
     [id],
   );
 
-  return rows.length > 0 ? rows[0] : null;
+  return rows.length > 0 ? (rows[0] as User) : null;
 };
 
 /**
@@ -43,7 +44,7 @@ export const createUser = async (
   email: string,
   password: string,
 ): Promise<number> => {
-  const [result]: any = await pool.execute(
+  const [result] = await pool.execute<ResultSetHeader>(
     "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
     [name, email, password],
   );

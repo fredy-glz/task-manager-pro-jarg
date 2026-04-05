@@ -1,17 +1,16 @@
 info:
-  name: Login - Credenciales incorrectas
+  name: Create Task - Sin título
   type: http
-  seq: 6
+  seq: 5
 
 http:
   method: POST
-  url: "{{baseUrl}}/api/auth/login"
+  url: "{{baseUrl}}/api/tasks"
   body:
     type: json
     data: |-
       {
-        "email": "fredy@test.com",
-        "password": "wrongpassword"
+        "description": "Sin título"
       }
   auth: inherit
 

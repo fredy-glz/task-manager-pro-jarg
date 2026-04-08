@@ -5,7 +5,7 @@ Gestor de tareas full-stack con roles, tablero drag & drop y estadísticas.
 ![Estado](https://img.shields.io/badge/estado-en%20desarrollo-yellow)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
 ![Node](https://img.shields.io/badge/Node.js-24+-green)
-![React](https://img.shields.io/badge/React-19+-61DAFB?logo=react)
+![Angular](https://img.shields.io/badge/Angular-21+-DD0031?logo=angular)
 
 ## Tech Stack
 

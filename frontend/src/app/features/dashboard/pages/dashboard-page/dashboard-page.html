@@ -1,0 +1,11 @@
+<h1>Dashboard</h1>
+
+@if (user) {
+  <p>Bienvenido, {{ user.name }}</p>
+  <p>Correo: {{ user.email }}</p>
+  <p>Rol: {{ user.role }}</p>
+
+  <button (click)="logout()">Cerrar sesión</button>
+} @else {
+  <p>No hay usuario en sesión</p>
+}

@@ -10,7 +10,7 @@ Gestor de tareas full-stack con roles, tablero drag & drop y estadísticas.
 ## Tech Stack
 
 **Backend:** Node.js, Express, Typescript, MySQL  
-**Frontend:** React, Typescript, Vite, CSS nativo  
+**Frontend:** Angular, Typescript, CSS nativo  
 **Auth:** JWT + bcrypt
 
 ## Features
@@ -80,7 +80,7 @@ task-manager-pro/
 
 - MySQL 8+
 - Node.js 24+
-- React 19+
+- Angular 21+
 
 ### Backend
 
@@ -96,7 +96,7 @@ npm run dev
 ```bash
 cd frontend
 npm install
-npm run dev
+npm start
 ```
 
 ## API Endpoints
